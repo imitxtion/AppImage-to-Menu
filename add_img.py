@@ -14,8 +14,8 @@ def main():
     args = parser.parse_args()
 
     # Validate the AppImage file
-    appimage_path = Path(args.app_image)
-    if not appimage_path.is_file():
+    appimage_path = Path(args.app_image).resolve()
+    if not appimage_path.is_file() or not appimage_path.suffix == ".AppImage":
         print(f"Error: File '{args.app_image}' does not exist or is not a valid file.")
         sys.exit(1)
 
@@ -24,10 +24,11 @@ def main():
 
     # Determine the icon path
     if args.icon:
-        icon_path = Path(args.icon)
-        if not icon_path.is_file():
-            print(f"Error: Icon file '{args.icon}' does not exist.")
-            sys.exit(1)
+        icon_path = Path(args.icon).resolve()
+        if not icon_path.is_file() or not icon_path.suffix in [".png", ".svg"]:
+            print(f"Warning: Icon file '{args.icon}' does not exist or is not a valid file.")
+            print("For that reason the default icon will be used.")
+            icon_path = "application-x-executable"
     else: 
         icon_path = "application-x-executable"
 
