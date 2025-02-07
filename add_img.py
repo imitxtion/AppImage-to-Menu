@@ -5,9 +5,6 @@ import sys
 import argparse
 from pathlib import Path
 
-# Default icon path (relative to the script's location)
-DEFAULT_ICON = Path(__file__).parent / "default-icon.png"
-
 def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description="Add .AppImage files to the application launcher menu.")
